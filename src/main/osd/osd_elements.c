@@ -1476,6 +1476,25 @@ static void osdElementWarnings(osdElementParms_t *element)
     }
 }
 
+static void osdElementCustomMessage(osdElementParms_t *element)
+{
+    //display string from msp, without handle
+    if (strlen(customMsgConfig()->message1) == 0) {
+        strcpy(element->buff, "READY_GO");
+    } else {
+        unsigned i;
+        for (i = 0; i < MAX_CUSTOM_MSG_LENGTH; i++) {
+            if (customMsgConfig()->message1[i]) {
+                element->buff[i] = customMsgConfig()->message1[i];
+                //element->buff[i] = toupper((unsigned char)customMsgConfig()->message1[i]);
+            } else {
+                break;
+            }
+        }
+        element->buff[i] = '\0';
+    }
+}
+
 // Define the order in which the elements are drawn.
 // Elements positioned later in the list will overlay the earlier
 // ones if their character positions overlap
@@ -1558,6 +1577,7 @@ static const uint8_t osdElementDisplayOrder[] = {
 #ifdef USE_PERSISTENT_STATS
     OSD_TOTAL_FLIGHTS,
 #endif
+    OSD_CUSTOM_MESSAGE,
 };
 
 // Define the mapping between the OSD element id and the function to draw it
@@ -1675,6 +1695,7 @@ const osdElementDrawFn osdElementDrawFunction[OSD_ITEM_COUNT] = {
 #ifdef USE_PERSISTENT_STATS
     [OSD_TOTAL_FLIGHTS]           = osdElementTotalFlights,
 #endif
+    [OSD_CUSTOM_MESSAGE]          = osdElementCustomMessage,
 };
 
 // Define the mapping between the OSD element id and the function to draw its background (static part)

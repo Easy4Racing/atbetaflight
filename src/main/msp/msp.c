@@ -4019,6 +4019,16 @@ static mspResult_e mspCommonProcessInCommand(mspDescriptor_t srcDesc, int16_t cm
         }
         break;
 #endif // OSD
+    case MSP2_SET_CUSTOM_OSD_INFO:
+        {   //handle custom msg from msp
+            const uint8_t textLength = MIN(MAX_CUSTOM_MSG_LENGTH, sbufReadU8(src));
+            memset(customMsgConfigMutable()->message1, 0, textLength);
+            
+            for (unsigned int i = 0; i < textLength; i++) {
+                customMsgConfigMutable()->message1[i] = sbufReadU8(src);
+            }
+        }
+        break;
 
     default:
         return mspProcessInCommand(srcDesc, cmdMSP, src);
