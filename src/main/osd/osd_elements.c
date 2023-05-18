@@ -1478,7 +1478,8 @@ static void osdElementWarnings(osdElementParms_t *element)
 
 static void osdElementCustomMessage(osdElementParms_t *element)
 {
-    tfp_sprintf(element->buff, "LAP%d|%.3f", 3, 12.456);
+    float tmpvalue = 12.456;
+    tfp_sprintf(element->buff, "LAP%d|%.3f", 3, tmpvalue);
 }
 
 // Define the order in which the elements are drawn.
