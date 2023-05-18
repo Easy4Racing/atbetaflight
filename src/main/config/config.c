@@ -112,6 +112,14 @@ PG_RESET_TEMPLATE(pilotConfig_t, pilotConfig,
     .displayName = { 0 },
 );
 
+PG_REGISTER_WITH_RESET_TEMPLATE(customMsgConfig_t, customMsgConfig, PG_PILOT_CONFIG, 1);
+
+PG_RESET_TEMPLATE(customMsgConfig_t, customMsgConfig,
+    .customMessage[0] = { 0 },
+    .customMessage[1] = { 0 },
+    .customMessage[2] = { 0 },
+);
+
 PG_REGISTER_WITH_RESET_TEMPLATE(systemConfig_t, systemConfig, PG_SYSTEM_CONFIG, 3);
 
 PG_RESET_TEMPLATE(systemConfig_t, systemConfig,
